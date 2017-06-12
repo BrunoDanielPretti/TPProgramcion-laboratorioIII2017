@@ -26,3 +26,7 @@ function btnSesion(){
     })
     //$("#principal").html("Boton de Sesion");
 }
+
+function btnEst(){
+    $("#btn-est-200").css({"color": "red"});
+}
