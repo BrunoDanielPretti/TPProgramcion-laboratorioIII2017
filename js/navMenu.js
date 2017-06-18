@@ -16,16 +16,16 @@ function aEstacionamiento(){
     })
 }
 
-function btnSesion(){
-    $.ajax({
-        url: "partes/menuSesion.php",
-        method: "POST",
-        dataType: "text"
-    }).done(function(data){
-        $("#principal").html(data);
-    })
-    //$("#principal").html("Boton de Sesion");
-}
+// function btnSesion(){
+//     $.ajax({
+//         url: "partes/menuSesion.php",
+//         method: "POST",
+//         dataType: "text"
+//     }).done(function(data){
+//         $("#principal").html(data);
+//     })
+//     //$("#principal").html("Boton de Sesion");
+// }
 
 function btnEst(){
     $("#btn-est-200").css({"color": "red"});
