@@ -6,6 +6,7 @@ require 'vendor/autoload.php';
 require 'php/clases/AutentificadorJWT.php';
 require 'php/clases/AccesoDatos.php';
 require 'php/clases/Usuario.php';
+require 'partes/Manejo_Nav_Menu.php';
 
 //\slim\Slim::registerAutoloader();
 //$app = new \Slim\App();
@@ -55,6 +56,7 @@ $app->get('/ValidarToken', function (Request $request, Response $response) {
     //var_dump($decod);
 });
 
+
 //-------------------------------------- USUARIO --------------------------------------------------------//
 
 $app->post('/php/iniciarUsuario', function(Request $request, Response $response){
@@ -65,7 +67,12 @@ $app->post('/php/iniciarUsuario', function(Request $request, Response $response)
     
     if($resultado != false){        
         $datos= array('usuario' => $usuario, 'clave' => $clave, 'tipo' => $resultado);
-        $token = AutentificadorJWT::CrearToken($datos);                      
+        $token = AutentificadorJWT::CrearToken($datos);  
+
+        $navMenu = MANEJO_NAV_MENU($resultado, $usuario);
+        
+        $envio = array('token' => $token, 'nav' => $navMenu);
+        echo json_encode($envio);
     }else{
         echo "error";
     }            

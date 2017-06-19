@@ -36,17 +36,18 @@ function Sesion_Aceptar(){
         url: pNexo+"php/iniciarUsuario",
         //url: "php/validarUsuario.php",
         method: "POST",
-        data: enviar        
-                
-    }).done(function(dato){
-        if(dato == "error"){
+        data: enviar,
+        dataType: "text"                        
+    }).done(function(datos){
+        if(datos == "error"){
             $("#frmTxtUsuario").addClass("has-error");
             $("#frmTxtClave").addClass("has-error");
             $("#spanTxtClave").removeClass("hidden");
         }
         else{
-            localStorage.setItem("token", dato);
-            NexoP("home");
+            datos = JSON.parse(datos);
+            localStorage.setItem("token", datos['token']);
+            $("#nav-1").html(datos['nav']);
             //Refresh_Nav();
         }
        
