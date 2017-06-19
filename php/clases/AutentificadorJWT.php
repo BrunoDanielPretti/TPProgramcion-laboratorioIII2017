@@ -32,6 +32,17 @@
             
             
         }
+
+        public static function DecodificarToken($pToken){
+            try{
+                $decod = JWT::decode($pToken, self::$claveSecreta, array(self::$tipoEncriptacion) );
+                return $decod;
+            }
+            catch(\exeption $e){
+                throw new Exception("Error Processing Request", 404);
+            }
+                                                
+        }
     }
 
 

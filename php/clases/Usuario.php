@@ -43,6 +43,10 @@
             }
             return false;
         }
+
+        public static function EchoPrueba(){
+            return "La clase Usuario anda";
+        }
     }
 
 

@@ -4,6 +4,8 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
 require 'php/clases/AutentificadorJWT.php';
+require 'php/clases/AccesoDatos.php';
+require 'php/clases/Usuario.php';
 
 //\slim\Slim::registerAutoloader();
 //$app = new \Slim\App();
@@ -19,7 +21,7 @@ $app->get('/', function(){
 });
 //---------------------------------  Partes  --------------------------------------------------//
 
-$app->get('/partes/{pParte}', function($request, $response, $args){
+$app->get('/partes/{pParte}', function(Request $request, Response $response, $args){
     $p = $args['pParte'];
     include("partes/$p.php");
 });
@@ -53,8 +55,21 @@ $app->get('/ValidarToken', function (Request $request, Response $response) {
     //var_dump($decod);
 });
 
-//----------------------------------------------------------------------------------------------//
+//-------------------------------------- USUARIO --------------------------------------------------------//
 
+$app->post('/php/iniciarUsuario', function(Request $request, Response $response){
+    $usuario = $request->getParam("usuario");
+    $clave = $request->getParam("clave");
+
+    $resultado = Usuario::BuscarPorSesion($usuario, $clave);      
+    
+    if($resultado != false){        
+        $datos= array('usuario' => $usuario, 'clave' => $clave, 'tipo' => $resultado);
+        $token = AutentificadorJWT::CrearToken($datos);                      
+    }else{
+        echo "error";
+    }            
+});
 
 $app->run();
 ?>
