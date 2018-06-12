@@ -40,7 +40,7 @@ $app->get('/getNewToken', function(){
 
 $app->get('/ValidarToken', function (Request $request, Response $response) {        
     //$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJJQVQiOjE0OTc1Nzk2OTcsIkVYUCI6MTQ5NzU3OTc1NywiREFUQSI6eyJqdWFuIjoicm9nZWxpbyIsImFwZWxsaWRvIjoicGVyZXMiLCJlZGFkIjozM30sIkFQUCI6ImFwaXJlc3QgSldUIn0.qZ4qjHJKHouScHhUDyt_uS7KX7aJSS2HszW2smM8nfY";
-    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJJQVQiOjE0OTc3MzU3ODUsIkVYUCI6MTQ5NzczNTg0NSwiREFUQSI6eyJqdWFuIjoicm9nZWxpbyIsImFwZWxsaWRvIjoicGVyZXMiLCJlZGFkIjozM30sIkFQUCI6ImFwaXJlc3QgSldUIn0.VV9zLG3Gnxu3XemwXWyuHfL-Bt87ZeH0GNldcgTveFs";
+    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJJQVQiOjE1Mjg3NTc4ODIsIkVYUCI6MTUyODc1Nzk0MiwiREFUQSI6eyJqdWFuIjoicm9nZWxpbyIsImFwZWxsaWRvIjoicGVyZXMiLCJlZGFkIjozM30sIkFQUCI6ImFwaXJlc3QgSldUIn0.yLkJg9o63n8OjA1jJEI_rwUba0Mr0mrRTlKzwcNBWiw";
     try{
         AutentificadorJWT::VirificarToken($token);
         return "valido";
@@ -60,8 +60,13 @@ $app->get('/ValidarToken', function (Request $request, Response $response) {
 //-------------------------------------- USUARIO --------------------------------------------------------//
 
 $app->post('/php/iniciarUsuario', function(Request $request, Response $response){
-    $usuario = $request->getParam("usuario");
-    $clave = $request->getParam("clave");
+    //$usuario = $request->getParam("usuario");
+    //$clave   = $request->getParam("clave");
+    $ArrayDeParametros = $request->getParsedBody();
+    $usuario = $ArrayDeParametros['usuario'];
+    $clave   = $ArrayDeParametros['clave'];
+
+    var_dump($ArrayDeParametros);
 
     $resultado = Usuario::BuscarPorSesion($usuario, $clave);      
     
